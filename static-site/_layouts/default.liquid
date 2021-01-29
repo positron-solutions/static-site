@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include "head.liquid" %}
+  </head>
+  <body>
+    <background>
+      <img id="time-diagram" src="/public/images/web-diagram.svg"></img>
+    </background>
+    <header>
+      {% include "header.liquid" %}
+    </header>
+    <main class="flex_main">
+      {{ page.content }}
+    </main>
+    <footer>
+      {% include "footer.liquid" %}
+    </footer>
+  </body>
+</html>

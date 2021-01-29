@@ -1,0 +1,35 @@
+apiVersion: skaffold/v2beta7
+kind: Config
+metadata:
+  name: positron-static-site
+build:
+  artifacts:
+    - image: positron-static-site
+      custom:
+        buildCommand: |
+          read -ra loaded <<< $(docker load -i \
+            $(nix-build -A siteServerContainer \
+              --arg crossSystem '{ config = "x86_64-unknown-linux-musl"; }' \
+              --argstr system x86_64-linux \
+              --no-out-link) \
+          ) && \
+          docker tag "${loaded[2]}" $IMAGE
+        dependencies:
+          paths:
+            - ./static-site
+            - ./charts
+            - ./**.nix
+
+deploy:
+  helm:
+    releases:
+    - name: positron-static-site
+      chartPath: charts/positron-static-site
+      artifactOverrides:
+        image: positron-static-site
+
+portForward:
+- resourceType: service
+  resourceName: positron-static-site
+  port: 80
+  localPort: 3000  # exposes site on localhost:3000x

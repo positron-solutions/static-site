@@ -1,0 +1,72 @@
+name: Push Container to GCR
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+    - 'README.md'
+    - 'LICENSE'
+    - '.gitattributes'
+    - '.gitmodules'
+    - 'skaffold.yaml'
+env:
+  GCR_PUSH_KEY: '${{ secrets.GCR_PUSH_KEY }}'
+  CON_REPO: positron-static-site
+  PROJECT_ID: '${{ secrets.PROJECT_ID }}'
+  DEPLOY_BRANCH: deployment
+  MASTER_BRANCH: master
+  VALUES_FILE: charts/positron-static-site/values.yaml
+jobs:
+  push-container:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.3.4
+    - name: Install Nix
+      uses: cachix/install-nix-action@v12
+      with:
+        nix_path: nixpkgs=channel:nixos-20.09
+    - uses: cachix/cachix-action@v8
+      with:
+        name: positron-static-site
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Push Container Image
+      env:
+        IMAGE: 'asia.gcr.io/${{ env.PROJECT_ID }}/${{ env.CON_REPO }}'
+      run: |
+        echo "::group:: Install CD dependencies"
+        nix-env -i docker gnused git coreutils -f '<nixpkgs>'
+        echo "::endgroup::"
+
+        echo "::group:: Log docker into GCR"
+        echo $GCR_PUSH_KEY | base64 -d | \
+          docker login -u _json_key --password-stdin https://asia.gcr.io
+        echo "::endgroup::"
+
+        echo "::group:: Build latest image"
+        nix-build -A siteServerContainer \
+          --arg crossSystem '{ config = "x86_64-unknown-linux-musl"; }' \
+          --argstr system x86_64-linux
+        echo "::endgroup::"
+
+        echo "::group:: Push tagged image to GCR"
+        read -ra loaded <<< $(docker load -i result)
+        docker tag "${loaded[2]}" $IMAGE
+        read -ra pushed <<< $(docker push $IMAGE | tail -n 1)
+        echo "::endgroup::"
+
+        echo "::group:: Update chart image digest"
+        digest="${pushed[2]}"
+        sed -i -r "s/([\s]*image: [^@]+@)(sha256:[a-zA-Z0-9]+)(["'"'"']?)/\1${digest}\3/g" $VALUES_FILE
+        echo "::endgroup::"
+
+        echo "::group:: Commit updated chart"
+        git config --global user.name "Positron Machine"
+        git config --global user.email "positron-machine@users.noreply.github.com"
+        git add $VALUES_FILE
+        git commit -m 'Updated deployment image digest' \
+          --author "$GITHUB_ACTOR <$GITHUB_ACTOR@users.noreply.github.com>"
+        repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+        # These two pushes are allowed to fail as multiple CD runs may be racing
+        git push $repo HEAD:${MASTER_BRANCH} --force-with-lease || true
+        git push $repo HEAD:${DEPLOY_BRANCH} --force-with-lease || true
+        echo "::endgroup::"

@@ -1,0 +1,74 @@
+{
+    "cargo2nix": {
+        "branch": "master",
+        "description": "Build Rust crates with Nix",
+        "homepage": "",
+        "owner": "cargo2nix",
+        "repo": "cargo2nix",
+        "rev": "0dec2a8d6313347dfd183f3cd52aa9d3b43e7ed2",
+        "sha256": "045cfvvwirlyp0h36ppbpp8ygqj3nzwzxgmsijh5cm9ilslxm3ym",
+        "type": "tarball",
+        "url": "https://github.com/cargo2nix/cargo2nix/archive/0dec2a8d6313347dfd183f3cd52aa9d3b43e7ed2.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "cobalt": {
+        "branch": "master",
+        "description": "Static site generator written in Rust",
+        "homepage": "https://cobalt-org.github.io/",
+        "owner": "cobalt-org",
+        "repo": "cobalt.rs",
+        "rev": "3cc15c63075d7149db83551cdc5f9112ea90e89c",
+        "sha256": "1dfygail5h23c5n7cz836s3wzhbfkn1c4wjkmdcx3nlz0ds70msf",
+        "type": "tarball",
+        "url": "https://github.com/cobalt-org/cobalt.rs/archive/3cc15c63075d7149db83551cdc5f9112ea90e89c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "62fcf7d0859628f1834d84a7a0706ace0223c27e",
+        "sha256": "06ghvcsarvi32awxvgdxivaji8fsdhv46p49as8xx8whwia9d3rh",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/62fcf7d0859628f1834d84a7a0706ace0223c27e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "master",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "41dddb1283733c4993cb6be9573d5cef937c1375",
+        "sha256": "1blbidbmxhaxar2x76nz72bazykc5yxi0algsbrhxgrsvijs4aiw",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/41dddb1283733c4993cb6be9573d5cef937c1375.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-mozilla": {
+        "branch": "master",
+        "description": "mozilla related nixpkgs (extends nixos/nixpkgs repo)",
+        "homepage": null,
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "rev": "18cd4300e9bf61c7b8b372f07af827f6ddc835bb",
+        "sha256": "1s0d1l5y7a3kygjbibssjnj7fcc87qaa5s9k4kda0j13j9h4zwgr",
+        "type": "tarball",
+        "url": "https://github.com/mozilla/nixpkgs-mozilla/archive/18cd4300e9bf61c7b8b372f07af827f6ddc835bb.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "static-web-server": {
+        "branch": "master",
+        "description": "A blazing fast static files-serving web server powered by Rust Iron. :zap:",
+        "homepage": "https://git.io/static-web-server",
+        "owner": "joseluisq",
+        "repo": "static-web-server",
+        "rev": "15353672dc89c68fd72f6aa9cd6b8b9e9433e2a5",
+        "sha256": "1vdpk1xrhykmmm5xjakz03naki728gicsdd47104v6il3lrs9klw",
+        "type": "tarball",
+        "url": "https://github.com/joseluisq/static-web-server/archive/15353672dc89c68fd72f6aa9cd6b8b9e9433e2a5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
