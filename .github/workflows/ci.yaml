@@ -17,7 +17,7 @@ on:
     - '.gitmodules'
     - 'skaffold.yaml'
 jobs:
-  build-shell:
+  check-builds:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.4
@@ -25,54 +25,19 @@ jobs:
       uses: cachix/install-nix-action@v12
       with:
         nix_path: nixpkgs=channel:nixos-20.09
-    - name: refresh-nix-cache
-      uses: actions/cache@v2
+    - uses: cachix/cachix-action@v8
       with:
-        path: /nix/store
-        key: ${{ runner.os }}-nix-store-${{ job }}-${{ hashFiles('./**.nix') }}
-        restore-keys: |
-          ${{ runner.os }}-nix-store-${{ job }}-
-          ${{ runner.os }}-nix-store-
-    - run: nix-shell --run 'exit'
-
-  build-site:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2.3.4
-    - name: install-nix
-      uses: cachix/install-nix-action@v12
-      with:
-        nix_path: nixpkgs=channel:nixos-20.09
-    - name: refresh-nix-cache
-      uses: actions/cache@v2
-      with:
-        path: /nix/store
-        key: ${{ runner.os }}-nix-store-${{ job }}-${{ hashFiles('./**.nix') }}
-        restore-keys: |
-          ${{ runner.os }}-nix-store-${{ job }}-
-          ${{ runner.os }}-nix-store-
-    - run: |
+        name: positron-static-site
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: dev-shell-build
+      run: nix-shell --run 'exit'
+    - name: static-site-generation
+      run: |
         nix-build -A staticSiteContent \
         --arg crossSystem '{ config = "x86_64-unknown-linux-musl"; }' \
         --argstr system x86_64-linux
-  build-container:
-    runs-on: ubuntu-latest
-    needs: build-site
-    steps:
-    - uses: actions/checkout@v2.3.4
-    - name: install-nix
-      uses: cachix/install-nix-action@v12
-      with:
-        nix_path: nixpkgs=channel:nixos-20.09
-    - name: refresh-nix-cache
-      uses: actions/cache@v2
-      with:
-        path: /nix/store
-        key: ${{ runner.os }}-nix-store-${{ job }}-${{ hashFiles('./**.nix') }}
-        restore-keys: |
-          ${{ runner.os }}-nix-store-${{ job }}-
-          ${{ runner.os }}-nix-store-
-    - run: |
+    - name: server-container-build
+      run: |
         nix-build -A siteServerContainer \
         --arg crossSystem '{ config = "x86_64-unknown-linux-musl"; }' \
         --argstr system x86_64-linux
