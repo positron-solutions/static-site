@@ -1,0 +1,4 @@
+**/target
+**/result*
+static-site/_site/*
+.direnv

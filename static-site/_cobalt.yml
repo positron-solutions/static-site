@@ -1,0 +1,9 @@
+site:
+  title: Positron
+  description: From a Future Near You
+  base_url: https://positron.solutions
+posts:
+  rss: rss.xml
+syntax_highlight:
+  theme: "base16-eighties.dark"
+  enabled: true
