@@ -12,7 +12,7 @@ more teams. Every good CTO or Architect knows that successful adoption is a lot
 more than one lead writing and compiling code. You need a stack of CI & CD
 tooling that fits together and has a coherent bootstrap nailed down. You want to
 start like a company that's using Rust already. Ramp your organziation in less
-time with Positron
+time with Positron!
 
 <section class="the-goods">
   <div class="inner">
