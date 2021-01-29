@@ -167,15 +167,15 @@ nix-build -A siteServerContainer
 
 # follow the drv files using nix path-info and nix show-derivation
 
-nix path-info -shr /nix/store/4jg7z2fnfn3l0i7y7d7d83xmzzwy2r4v-crate-static-web-server-1.12.0-bin
-/nix/store/0bdb81p95mip0z30582lcyz76pv2zm41-openssl-1.1.1i-bin                	 757.8K
-/nix/store/1pjg5gp2vhpyks4vwvirx5g9qdnrprav-openssl-1.1.1i                    	   4.0M
-/nix/store/33idnvrkvfgd5lsx2pwgwwi955adl6sk-glibc-2.31                        	  29.7M
-/nix/store/4jg7z2fnfn3l0i7y7d7d83xmzzwy2r4v-crate-static-web-server-1.12.0-bin	   2.1M
-/nix/store/czc3c1apx55s37qx4vadqhn3fhikchxi-libunistring-0.9.10               	   1.6M
-/nix/store/m34wj7jjn76h3kfwa23in0a81qdmfk27-openssl                           	  33.4K
-/nix/store/xim9l8hym4iga6d4azam4m0k0p1nw2rm-libidn2-2.3.0                     	 217.5K
-/nix/store/zw9qzyal16dk0sy5rshlrh2889z88ijs-openssl-1.1.1i-dev                	   1.3M
+nix path-info -shr /nix/store/4jg7z2fnfb3l0i7y7d7d83xmzzwy2r4v-crate-static-web-server-1.12.0-bin
+/nix/store/0bdb81p95qip0z30582lcyz76pv2zm41-openssl-1.1.1i-bin                	 757.8K
+/nix/store/1pjg5gp2vcpyks4vwvirx5g9qdnrprav-openssl-1.1.1i                    	   4.0M
+/nix/store/33idnvrkvdgd5lsx2pwgwwi955adl6sk-glibc-2.31                        	  29.7M
+/nix/store/4jg7z2fnfa3l0i7y7d7d83xmzzwy2r4v-crate-static-web-server-1.12.0-bin	   2.1M
+/nix/store/czc3c1apx35s37qx4vadqhn3fhikchxi-libunistring-0.9.10               	   1.6M
+/nix/store/m34wj7jjn26h3kfwa23in0a81qdmfk27-openssl                           	  33.4K
+/nix/store/xim9l8hym1iga6d4azam4m0k0p1nw2rm-libidn2-2.3.0                     	 217.5K
+/nix/store/zw9qzyal1adk0sy5rshlrh2889z88ijs-openssl-1.1.1i-dev                	   1.3M
 ```
 
 Glibc looks big. Normally switching to musl would mean a lot of headache to
