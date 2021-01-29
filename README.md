@@ -30,7 +30,7 @@ cobalt serve
 cobalt build
 static-web-server --root _site \
   --assets _site/public/ \
-  --port 3001 \
+  --port 3000 \
   --page404 _site/404.html \
   --page50x _site/500.html 
 
