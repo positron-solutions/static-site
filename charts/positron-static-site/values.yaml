@@ -4,7 +4,7 @@
 
 replicaCount: 1
 
-image: "asia.gcr.io/the-cave-299505/positron-static-site@sha256:0000000000000000000000000000000000000000000000000000000000000000"
+image: "asia.gcr.io/the-cave-299505/positron-static-site@sha256:87f475687ea30ecda5647138949704528ba61c97c41e29bf36d60f66dec7ecc1"
 
 imagePullSecrets: []
 nameOverride: ""
