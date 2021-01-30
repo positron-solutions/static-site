@@ -1,4 +1,4 @@
-name: "Check Builds"
+name: Check Builds
 on:
   pull_request:
     paths-ignore:
@@ -9,7 +9,7 @@ on:
     - 'skaffold.yaml'
   push:
     branches:
-      - main
+      - master
     paths-ignore:
     - 'README.md'
     - 'LICENSE'
@@ -29,14 +29,14 @@ jobs:
       with:
         name: positron-static-site
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: dev-shell-build
+    - name: Enter dev shell
       run: nix-shell --run 'exit'
-    - name: static-site-generation
+    - name: Generate static site files
       run: |
         nix-build -A staticSiteContent \
         --arg crossSystem '{ config = "x86_64-unknown-linux-musl"; }' \
         --argstr system x86_64-linux
-    - name: server-container-build
+    - name: Containerize with static server
       run: |
         nix-build -A siteServerContainer \
         --arg crossSystem '{ config = "x86_64-unknown-linux-musl"; }' \
