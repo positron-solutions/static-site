@@ -43,7 +43,7 @@ jobs:
         --argstr system x86_64-linux
     - name: Lint charts
       run: |
-        nix-env -i kubernetes-helm -f '<nixpkgs>'
+        nix-env -i helm -f '<nixpkgs>'
         helm lint --strict charts/positron-static-site
     - name: Render charts
       run: |
