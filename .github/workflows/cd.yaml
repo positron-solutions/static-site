@@ -66,7 +66,7 @@ jobs:
         git commit -m 'Updated deployment image digest' \
           --author "$GITHUB_ACTOR <$GITHUB_ACTOR@users.noreply.github.com>"
         repo="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-        # These two pushes are allowed to fail as multiple CD runs may be racing
-        git push $repo HEAD:${MASTER_BRANCH} --force-with-lease || true
-        git push $repo HEAD:${DEPLOY_BRANCH} --force-with-lease || true
+
+        git push $repo HEAD:${MASTER_BRANCH} --force
+        git push $repo HEAD:${DEPLOY_BRANCH} --force
         echo "::endgroup::"
