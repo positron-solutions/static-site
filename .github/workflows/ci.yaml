@@ -41,3 +41,13 @@ jobs:
         nix-build -A siteServerContainer \
         --arg crossSystem '{ config = "x86_64-unknown-linux-musl"; }' \
         --argstr system x86_64-linux
+    - name: Lint charts
+      run: |
+        nix-shell -i kubernetes-helm -f '<nixpkgs>'
+        helm lint --strict charts/positron-static-site
+    - name: Render charts
+      run: |
+        nix-shell -i kubeval -f '<nixpkgs>'
+        helm template charts/positron-static-site \
+          -f charts/positron-static-site/values.yaml | \
+          kubeval --strict --ignore-missing-schemas
