@@ -4,9 +4,9 @@
 this repository. You can read more about this website on the [website
 itself][blog]. Some of the tools used:
 
-* CI & CD with [Github Actions][1] & [Argo CD][2]
-* Builds slugs using [Nix][3]
-* Local deploys with [Skaffold][4]
+* CI & CD with [Github Actions] & [Argo CD]
+* Builds slugs using [Nix]
+* Local deploys with [Skaffold]
 * Per-project Rust tooling with Nix shell
 * Direnv integration with IDE's
 
@@ -40,9 +40,10 @@ static-web-server --root _site \
 skaffold dev --port-forward
 ```
 
-[actions]: https://github.com/features/actions
-[argocd]: https://argoproj.github.io/argo-cd/
+[Github Actions]: https://github.com/features/actions
+[Argo CD]: https://argoproj.github.io/argo-cd/
+[Nix]: https://builtwithnix.org/
 [blog]: https://positron.solutions/posts/nixing-rust-into-the-cloud
 [nixos]: https://nixos.org/
 [positron]: https://positron.solutions
-[skaffold]: https://skaffold.dev/
+[Skaffold]: https://skaffold.dev/
